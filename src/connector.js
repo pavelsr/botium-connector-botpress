@@ -137,7 +137,7 @@ class BotiumConnectorBotpress {
   _buildRequest (msg) {
     const uri = `${this.caps[Capabilities.BOTPRESS_SERVER_URL]}/api/v1/bots/${this.caps[Capabilities.BOTPRESS_BOTID]}/converse/${this.userId}`
     
-    if (!this.caps[Capabilities.BOTPRESS_JWT]){
+    if (this.caps[Capabilities.BOTPRESS_JWT]){
       uri += '?include=nlu,state'
     }
     
