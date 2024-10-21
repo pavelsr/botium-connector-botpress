@@ -7,7 +7,8 @@ const Capabilities = {
   BOTPRESS_SERVER_URL: 'BOTPRESS_SERVER_URL',
   BOTPRESS_BOTID: 'BOTPRESS_BOTID',
   BOTPRESS_USERID: 'BOTPRESS_USERID',
-  BOTPRESS_USE_INTENT: 'BOTPRESS_USE_INTENT'
+  BOTPRESS_USE_INTENT: 'BOTPRESS_USE_INTENT',
+  BOTPRESS_JWT: 'BOTPRESS_JWT'
 }
 
 class BotiumConnectorBotpress {
@@ -134,8 +135,12 @@ class BotiumConnectorBotpress {
   }
 
   _buildRequest (msg) {
-    const uri = `${this.caps[Capabilities.BOTPRESS_SERVER_URL]}/api/v1/bots/${this.caps[Capabilities.BOTPRESS_BOTID]}/converse/${this.userId}?include=nlu,state`
-
+    const uri = `${this.caps[Capabilities.BOTPRESS_SERVER_URL]}/api/v1/bots/${this.caps[Capabilities.BOTPRESS_BOTID]}/converse/${this.userId}`
+    
+    if (!this.caps[Capabilities.BOTPRESS_JWT]){
+      uri += '?include=nlu,state'
+    }
+    
     const requestOptions = {
       uri,
       method: 'POST',
